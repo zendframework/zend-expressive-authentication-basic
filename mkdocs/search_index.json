@@ -3,7 +3,7 @@
         {
             "location": "/",
             "text": "zend-expressive-authentication-basic\n\n\n\n\n\n\nThis library provides an HTTP Basic authentication adapter for\n\nzend-expressive-authentication\n,\nand thus PSR-7 middleware applications.\n\n\nInstallation\n\n\nRun the following to install this library:\n\n\n$ composer require zendframework/zend-expressive-authentication-basic\n\n\n\nDocumentation\n\n\nDocumentation is \nin the doc tree\n, and can be compiled using \nmkdocs\n:\n\n\n$ mkdocs build\n\n\n\nYou may also \nbrowse the documentation online\n.",
-            "title": "zend-expressive-authentication-basic"
+            "title": "Home"
         },
         {
             "location": "/#zend-expressive-authentication-basic",
