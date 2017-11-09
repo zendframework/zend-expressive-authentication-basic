@@ -1,0 +1,34 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "zend-expressive-authentication-basic\n\n\n\n\n\n\nThis library provides an HTTP Basic authentication adapter for\n\nzend-expressive-authentication\n,\nand thus PSR-7 middleware applications.\n\n\nInstallation\n\n\nRun the following to install this library:\n\n\n$ composer require zendframework/zend-expressive-authentication-basic\n\n\n\nDocumentation\n\n\nDocumentation is \nin the doc tree\n, and can be compiled using \nmkdocs\n:\n\n\n$ mkdocs build\n\n\n\nYou may also \nbrowse the documentation online\n.",
+            "title": "zend-expressive-authentication-basic"
+        },
+        {
+            "location": "/#zend-expressive-authentication-basic",
+            "text": "This library provides an HTTP Basic authentication adapter for zend-expressive-authentication ,\nand thus PSR-7 middleware applications.",
+            "title": "zend-expressive-authentication-basic"
+        },
+        {
+            "location": "/#installation",
+            "text": "Run the following to install this library:  $ composer require zendframework/zend-expressive-authentication-basic",
+            "title": "Installation"
+        },
+        {
+            "location": "/#documentation",
+            "text": "Documentation is  in the doc tree , and can be compiled using  mkdocs :  $ mkdocs build  You may also  browse the documentation online .",
+            "title": "Documentation"
+        },
+        {
+            "location": "/intro/",
+            "text": "zend-expressive-authentication-basic\n\n\nThis component provides an HTTP Basic Authentication adapter for\n\nzend-expressive-authentication\n.\n\n\nDocs are forthcoming...",
+            "title": "Introduction"
+        },
+        {
+            "location": "/intro/#zend-expressive-authentication-basic",
+            "text": "This component provides an HTTP Basic Authentication adapter for zend-expressive-authentication .  Docs are forthcoming...",
+            "title": "zend-expressive-authentication-basic"
+        }
+    ]
+}
