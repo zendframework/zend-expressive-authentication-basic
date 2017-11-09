@@ -17,17 +17,20 @@ class BasicAccessFactory
 {
     use ResponsePrototypeTrait;
 
-    public function __invoke(ContainerInterface $container): BasicAccess
+    public function __invoke(ContainerInterface $container) : BasicAccess
     {
-        $userRegister = $container->has(UserRepositoryInterface::class) ?
-                        $container->get(UserRepositoryInterface::class) :
-                        null;
+        $userRegister = $container->has(UserRepositoryInterface::class)
+            ? $container->get(UserRepositoryInterface::class)
+            : null;
+
         if (null === $userRegister) {
             throw new Exception\InvalidConfigException(
                 'UserRepositoryInterface service is missing for authentication'
             );
         }
+
         $realm = $container->get('config')['authentication']['realm'] ?? null;
+
         if (null === $realm) {
             throw new Exception\InvalidConfigException(
                 'Realm value is not present in authentication config'

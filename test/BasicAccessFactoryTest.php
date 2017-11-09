@@ -14,6 +14,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Expressive\Authentication\Basic\BasicAccess;
 use Zend\Expressive\Authentication\Basic\BasicAccessFactory;
+use Zend\Expressive\Authentication\Exception\InvalidConfigException;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 
 class BasicAccessFactoryTest extends TestCase
@@ -26,47 +27,53 @@ class BasicAccessFactoryTest extends TestCase
         $this->responsePrototype = $this->prophesize(ResponseInterface::class);
     }
 
-    /**
-     * @expectedException Zend\Expressive\Authentication\Exception\InvalidConfigException
-     */
     public function testInvokeWithEmptyContainer()
     {
+        $this->expectException(InvalidConfigException::class);
         $basicAccess = ($this->factory)($this->container->reveal());
     }
 
-    /**
-     * @expectedException Zend\Expressive\Authentication\Exception\InvalidConfigException
-     */
     public function testInvokeWithContainerEmptyConfig()
     {
-        $this->container->has(UserRepositoryInterface::class)
-                        ->willReturn(true);
-        $this->container->get(UserRepositoryInterface::class)
-                        ->willReturn($this->userRegister->reveal());
-        $this->container->has(ResponseInterface::class)
-                        ->willReturn(true);
-        $this->container->get(ResponseInterface::class)
-                        ->willReturn($this->responsePrototype->reveal());
-        $this->container->get('config')
-                        ->willReturn([]);
+        $this->container
+            ->has(UserRepositoryInterface::class)
+            ->willReturn(true);
+        $this->container
+            ->get(UserRepositoryInterface::class)
+            ->willReturn($this->userRegister->reveal());
+        $this->container
+            ->has(ResponseInterface::class)
+            ->willReturn(true);
+        $this->container
+            ->get(ResponseInterface::class)
+            ->willReturn($this->responsePrototype->reveal());
+        $this->container
+            ->get('config')
+            ->willReturn([]);
 
+        $this->expectException(InvalidConfigException::class);
         $basicAccess = ($this->factory)($this->container->reveal());
     }
 
     public function testInvokeWithContainerAndConfig()
     {
-        $this->container->has(UserRepositoryInterface::class)
-                        ->willReturn(true);
-        $this->container->get(UserRepositoryInterface::class)
-                        ->willReturn($this->userRegister->reveal());
-        $this->container->has(ResponseInterface::class)
-                        ->willReturn(true);
-        $this->container->get(ResponseInterface::class)
-                        ->willReturn($this->responsePrototype->reveal());
-        $this->container->get('config')
-                        ->willReturn([
-                            'authentication' => ['realm' => 'My page']
-                        ]);
+        $this->container
+            ->has(UserRepositoryInterface::class)
+            ->willReturn(true);
+        $this->container
+            ->get(UserRepositoryInterface::class)
+            ->willReturn($this->userRegister->reveal());
+        $this->container
+            ->has(ResponseInterface::class)
+            ->willReturn(true);
+        $this->container
+            ->get(ResponseInterface::class)
+            ->willReturn($this->responsePrototype->reveal());
+        $this->container
+            ->get('config')
+            ->willReturn([
+                'authentication' => ['realm' => 'My page'],
+            ]);
 
         $basicAccess = ($this->factory)($this->container->reveal());
         $this->assertInstanceOf(BasicAccess::class, $basicAccess);

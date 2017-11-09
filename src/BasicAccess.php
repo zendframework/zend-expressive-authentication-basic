@@ -51,16 +51,18 @@ class BasicAccess implements AuthenticationInterface
     /**
      * {@inheritDoc}
      */
-    public function authenticate(ServerRequestInterface $request): ?UserInterface
+    public function authenticate(ServerRequestInterface $request) : ?UserInterface
     {
         $authHeader = $request->getHeader('Authorization');
         if (empty($authHeader)) {
             return null;
         }
-        if (! preg_match('/Basic ([a-zA-Z0-9\+\/\=]+)/', $authHeader[0], $match)) {
+
+        if (! preg_match('/Basic (?P<credentials>[a-zA-Z0-9\+\/\=]+)/', $authHeader[0], $match)) {
             return null;
         }
-        [$username, $password] = explode(':', base64_decode($match[1]));
+
+        [$username, $password] = explode(':', base64_decode($match['credentials']));
 
         return $this->repository->authenticate($username, $password);
     }
@@ -68,11 +70,13 @@ class BasicAccess implements AuthenticationInterface
     /**
      * {@inheritDoc}
      */
-    public function unauthorizedResponse(ServerRequestInterface $request): ResponseInterface
+    public function unauthorizedResponse(ServerRequestInterface $request) : ResponseInterface
     {
-        return $this->responsePrototype->withHeader(
-            'WWW-Authenticate',
-            sprintf("Basic realm=\"%s\"", $this->realm)
-        )->withStatus(401);
+        return $this->responsePrototype
+            ->withHeader(
+                'WWW-Authenticate',
+                sprintf('Basic realm="%s"', $this->realm)
+            )
+            ->withStatus(401);
     }
 }

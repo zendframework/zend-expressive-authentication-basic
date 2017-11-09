@@ -33,4 +33,13 @@ class ConfigProviderTest extends TestCase
         $this->assertArrayHasKey('dependencies', $config);
         $this->assertInternalType('array', $config['dependencies']);
     }
+
+    /**
+     * @depends testInvocationReturnsArray
+     */
+    public function testReturnedArrayContainsAuthenticationConfig(array $config)
+    {
+        $this->assertArrayHasKey('authentication', $config);
+        $this->assertInternalType('array', $config['authentication']);
+    }
 }
