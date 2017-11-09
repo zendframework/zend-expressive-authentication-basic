@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-expressive-authentication-basic",
-    "description": "<package description; should match repository description>",
+    "description": "HTTP Basic Authentication adapter for zend-expressive-authentication.",
     "license": "BSD-3-Clause",
     "keywords": [
         "expressive",
