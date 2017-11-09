@@ -6,7 +6,8 @@
         "expressive",
         "zf",
         "zendframework",
-        "<individual keywords for current package>"
+        "authentication",
+        "http-basic"
     ],
     "support": {
         "docs": "https://docs.zendframework.com/zend-expressive-authentication-basic/",
