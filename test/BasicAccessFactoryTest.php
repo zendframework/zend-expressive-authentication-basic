@@ -10,6 +10,7 @@ namespace ZendTest\Expressive\Authentication\Basic;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Expressive\Authentication\Basic\BasicAccess;
@@ -19,18 +20,32 @@ use Zend\Expressive\Authentication\UserRepositoryInterface;
 
 class BasicAccessFactoryTest extends TestCase
 {
+    /** @var ContainerInterface|ObjectProphecy */
+    private $container;
+
+    /** @var BasicAccessFactory */
+    private $factory;
+
+    /** @var UserRepositoryInterface|ObjectProphecy */
+    private $userRegister;
+
+    /** @var callback */
+    private $responseFactory;
+
     protected function setUp()
     {
         $this->container = $this->prophesize(ContainerInterface::class);
         $this->factory = new BasicAccessFactory();
         $this->userRegister = $this->prophesize(UserRepositoryInterface::class);
-        $this->responsePrototype = $this->prophesize(ResponseInterface::class);
+        $this->responseFactory = function () {
+            return $this->prophesize(ResponseInterface::class)->reveal();
+        };
     }
 
     public function testInvokeWithEmptyContainer()
     {
         $this->expectException(InvalidConfigException::class);
-        $basicAccess = ($this->factory)($this->container->reveal());
+        ($this->factory)($this->container->reveal());
     }
 
     public function testInvokeWithContainerEmptyConfig()
@@ -46,13 +61,13 @@ class BasicAccessFactoryTest extends TestCase
             ->willReturn(true);
         $this->container
             ->get(ResponseInterface::class)
-            ->willReturn($this->responsePrototype->reveal());
+            ->willReturn($this->responseFactory);
         $this->container
             ->get('config')
             ->willReturn([]);
 
         $this->expectException(InvalidConfigException::class);
-        $basicAccess = ($this->factory)($this->container->reveal());
+        ($this->factory)($this->container->reveal());
     }
 
     public function testInvokeWithContainerAndConfig()
@@ -68,7 +83,7 @@ class BasicAccessFactoryTest extends TestCase
             ->willReturn(true);
         $this->container
             ->get(ResponseInterface::class)
-            ->willReturn($this->responsePrototype->reveal());
+            ->willReturn($this->responseFactory);
         $this->container
             ->get('config')
             ->willReturn([

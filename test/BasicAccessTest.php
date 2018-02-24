@@ -10,6 +10,7 @@ namespace ZendTest\Expressive\Authentication\Basic;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
@@ -19,6 +20,18 @@ use Zend\Expressive\Authentication\UserRepositoryInterface;
 
 class BasicAccessTest extends TestCase
 {
+    /** @var ServerRequestInterface|ObjectProphecy */
+    private $request;
+
+    /** @var UserRepositoryInterface|ObjectProphecy */
+    private $userRepository;
+
+    /** @var UserInterface|ObjectProphecy */
+    private $authenticatedUser;
+
+    /** @var ResponseInterface|ObjectProphecy */
+    private $responsePrototype;
+
     protected function setUp()
     {
         $this->request = $this->prophesize(ServerRequestInterface::class);
