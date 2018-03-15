@@ -14,6 +14,11 @@ use Zend\Expressive\Authentication\AuthenticationInterface;
 use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
 
+use function base64_decode;
+use function explode;
+use function preg_match;
+use function sprintf;
+
 class BasicAccess implements AuthenticationInterface
 {
     /**
