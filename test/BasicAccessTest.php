@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-authentication-basic for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-authentication-basic/blob/master/LICENSE.md
  *     New BSD License
  */
@@ -11,8 +11,8 @@ namespace ZendTest\Expressive\Authentication\Basic;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
 use Zend\Expressive\Authentication\Basic\BasicAccess;
 use Zend\Expressive\Authentication\UserInterface;
@@ -32,12 +32,18 @@ class BasicAccessTest extends TestCase
     /** @var ResponseInterface|ObjectProphecy */
     private $responsePrototype;
 
+    /** @var callable */
+    private $responseFactory;
+
     protected function setUp()
     {
         $this->request = $this->prophesize(ServerRequestInterface::class);
         $this->userRepository = $this->prophesize(UserRepositoryInterface::class);
         $this->authenticatedUser = $this->prophesize(UserInterface::class);
         $this->responsePrototype = $this->prophesize(ResponseInterface::class);
+        $this->responseFactory = function () {
+            return $this->responsePrototype->reveal();
+        };
     }
 
     public function testConstructor()
@@ -45,7 +51,7 @@ class BasicAccessTest extends TestCase
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
             'test',
-            $this->responsePrototype->reveal()
+            $this->responseFactory
         );
         $this->assertInstanceOf(AuthenticationInterface::class, $basicAccess);
     }
@@ -59,7 +65,7 @@ class BasicAccessTest extends TestCase
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
             'test',
-            $this->responsePrototype->reveal()
+            $this->responseFactory
         );
         $this->assertNull($basicAccess->authenticate($this->request->reveal()));
     }
@@ -73,7 +79,7 @@ class BasicAccessTest extends TestCase
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
             'test',
-            $this->responsePrototype->reveal()
+            $this->responseFactory
         );
 
         $this->assertNull($basicAccess->authenticate($this->request->reveal()));
@@ -98,7 +104,7 @@ class BasicAccessTest extends TestCase
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
             'test',
-            $this->responsePrototype->reveal()
+            $this->responseFactory
         );
 
         $user = $basicAccess->authenticate($this->request->reveal());
@@ -119,7 +125,7 @@ class BasicAccessTest extends TestCase
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
             'test',
-            $this->responsePrototype->reveal()
+            $this->responseFactory
         );
 
         $this->assertNull($basicAccess->authenticate($this->request->reveal()));
@@ -140,7 +146,7 @@ class BasicAccessTest extends TestCase
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
             'test',
-            $this->responsePrototype->reveal()
+            $this->responseFactory
         );
 
         $response = $basicAccess->unauthorizedResponse($this->request->reveal());

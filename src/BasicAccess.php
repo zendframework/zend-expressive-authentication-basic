@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-authentication-basic for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-authentication-basic/blob/master/LICENSE.md
  *     New BSD License
  */
@@ -13,6 +13,11 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Authentication\AuthenticationInterface;
 use Zend\Expressive\Authentication\UserInterface;
 use Zend\Expressive\Authentication\UserRepositoryInterface;
+
+use function base64_decode;
+use function explode;
+use function preg_match;
+use function sprintf;
 
 class BasicAccess implements AuthenticationInterface
 {
@@ -27,30 +32,24 @@ class BasicAccess implements AuthenticationInterface
     protected $realm;
 
     /**
-     * @var ResponseInterface
+     * @var callable
      */
-    protected $responsePrototype;
+    protected $responseFactory;
 
-    /**
-     * Constructor
-     *
-     * @param UserRepositoryInterface $repository
-     * @param string $realm
-     * @param ResponseInterface $responsePrototype
-     */
     public function __construct(
         UserRepositoryInterface $repository,
         string $realm,
-        ResponseInterface $responsePrototype
+        callable $responseFactory
     ) {
         $this->repository = $repository;
         $this->realm = $realm;
-        $this->responsePrototype = $responsePrototype;
+
+        // Ensures type safety of the composed factory
+        $this->responseFactory = function () use ($responseFactory) : ResponseInterface {
+            return $responseFactory();
+        };
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function authenticate(ServerRequestInterface $request) : ?UserInterface
     {
         $authHeader = $request->getHeader('Authorization');
@@ -67,12 +66,9 @@ class BasicAccess implements AuthenticationInterface
         return $this->repository->authenticate($username, $password);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function unauthorizedResponse(ServerRequestInterface $request) : ResponseInterface
     {
-        return $this->responsePrototype
+        return ($this->responseFactory)()
             ->withHeader(
                 'WWW-Authenticate',
                 sprintf('Basic realm="%s"', $this->realm)

@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.3.0 - 2018-03-15
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Updates the zendframework/zend-expressive-authentication minimum supported
+  version to 0.4.
+
+- [#5](https://github.com/zendframework/zend-expressive-authentication-basic/pull/5)
+  changes the constructor of the `Zend\Expressive\Authentication\Basic\BasicAccess`
+  class to accept a callable `$responseFactory` instead of a
+  `Psr\Http\Message\ResponseInterface` response prototype. The
+  `$responseFactory` should produce a `ResponseInterface` implementation when
+  invoked.
+
+- [#5](https://github.com/zendframework/zend-expressive-authentication-basic/pull/5)
+  updates the `BasicAccessFactory` to no longer use
+  `Zend\Expressive\Authentication\ResponsePrototypeTrait`, and instead always
+  depend on the `Psr\Http\Message\ResponseInterface` service to correctly return
+  a PHP callable capable of producing a `ResponseInterface` instance.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.2.0 - 2018-02-26
 
 ### Added
