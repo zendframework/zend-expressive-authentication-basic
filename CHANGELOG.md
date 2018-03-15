@@ -2,13 +2,16 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.0.0alpha1 - 2018-02-27
+## 0.3.0 - 2018-03-15
 
 ### Added
 
 - Nothing.
 
 ### Changed
+
+- Updates the zendframework/zend-expressive-authentication minimum supported
+  version to 0.4.
 
 - [#5](https://github.com/zendframework/zend-expressive-authentication-basic/pull/5)
   changes the constructor of the `Zend\Expressive\Authentication\Basic\BasicAccess`
