@@ -58,13 +58,13 @@ class BasicAccessTest extends TestCase
 
 
     /**
-     * @param array $authHeaderContent
+     * @param string $authHeaderContent
      * @dataProvider provideInvalidAuthenticationHeader
      */
-    public function testIsAuthenticatedWithInvalidData(array $authHeaderContent)
+    public function testIsAuthenticatedWithInvalidData(string $authHeaderContent)
     {
         $this->request
-            ->getHeader('Authorization')
+            ->getHeaderLine('Authorization')
             ->willReturn($authHeaderContent);
 
         $basicAccess = new BasicAccess(
@@ -78,13 +78,13 @@ class BasicAccessTest extends TestCase
     /**
      * @param string $username
      * @param string $password
-     * @param array $header
+     * @param string $header
      * @dataProvider provideValidAuthentication
      */
-    public function testIsAuthenticatedWithValidCredential(string $username, string $password, array $header)
+    public function testIsAuthenticatedWithValidCredential(string $username, string $password, string $header)
     {
         $this->request
-            ->getHeader('Authorization')
+            ->getHeaderLine('Authorization')
             ->willReturn($header);
         $this->request
             ->withAttribute(UserInterface::class, Argument::type(UserInterface::class))
@@ -111,8 +111,8 @@ class BasicAccessTest extends TestCase
     public function testIsAuthenticatedWithNoCredential()
     {
         $this->request
-            ->getHeader('Authorization')
-            ->willReturn(['Basic QWxhZGRpbjpPcGVuU2VzYW1l']);
+            ->getHeaderLine('Authorization')
+            ->willReturn('Basic QWxhZGRpbjpPcGVuU2VzYW1l');
 
         $this->userRepository
             ->authenticate('Aladdin', 'OpenSesame')
@@ -153,31 +153,31 @@ class BasicAccessTest extends TestCase
     public function provideInvalidAuthenticationHeader(): array
     {
         return [
-            'empty-header' => [[]],
-            'missing-basic-prefix' => [['foo']],
-            'only-username' => [['Basic ' . base64_encode('Aladdin')]],
-            'username-with-colon' => [['Basic ' . base64_encode('Aladdin:')]],
-            'password-without-username' => [['Basic ' . base64_encode(':OpenSesame')]],
-            'base64-encoded-pile-of-poo-emoji' => [['Basic ' . base64_encode('💩')]],
-            'password-containing-colon' => [['Basic ' . base64_encode('username:password:containing:colons:')]],
-            'only-one-colon' => [['Basic ' . base64_encode(':')]],
-            'multiple-colons' => [['Basic ' . base64_encode(':::::::')]],
-            'pile-of-poo-emoji' => [['Basic 💩']],
-            'only-pile-of-poo-emoji' => [['💩']],
-            'basic-prefix-without-content' => [['Basic ']],
-            'only-basic' => [['Basic']],
+            'empty-header' => [''],
+            'missing-basic-prefix' => ['foo'],
+            'only-username' => ['Basic ' . base64_encode('Aladdin')],
+            'username-with-colon' => ['Basic ' . base64_encode('Aladdin:')],
+            'password-without-username' => ['Basic ' . base64_encode(':OpenSesame')],
+            'base64-encoded-pile-of-poo-emoji' => ['Basic ' . base64_encode('💩')],
+            'password-containing-colon' => ['Basic ' . base64_encode('username:password:containing:colons:')],
+            'only-one-colon' => ['Basic ' . base64_encode(':')],
+            'multiple-colons' => ['Basic ' . base64_encode(':::::::')],
+            'pile-of-poo-emoji' => ['Basic 💩'],
+            'only-pile-of-poo-emoji' => ['💩'],
+            'basic-prefix-without-content' => ['Basic '],
+            'only-basic' => ['Basic'],
         ];
     }
 
     public function provideValidAuthentication(): array
     {
         return [
-            'aladdin' => ['Aladdin', 'OpenSesame', ['Basic ' . base64_encode('Aladdin:OpenSesame')]],
-            'passwords-with-colon' => ['Aladdin', 'Open:Sesame', ['Basic ' . base64_encode('Aladdin:Open:Sesame')]],
+            'aladdin' => ['Aladdin', 'OpenSesame', 'Basic ' . base64_encode('Aladdin:OpenSesame')],
+            'passwords-with-colon' => ['Aladdin', 'Open:Sesame', 'Basic ' . base64_encode('Aladdin:Open:Sesame')],
             'passwords-with-multiple-colons' => [
                 'Aladdin',
                 ':Open:Sesame:',
-                ['Basic ' . base64_encode('Aladdin::Open:Sesame:')]
+                'Basic ' . base64_encode('Aladdin::Open:Sesame:')
             ],
         ];
     }
