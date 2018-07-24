@@ -46,7 +46,7 @@ class BasicAccessTest extends TestCase
         };
     }
 
-    public function testConstructor(): void
+    public function testConstructor()
     {
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
@@ -61,7 +61,7 @@ class BasicAccessTest extends TestCase
      * @param array $authHeaderContent
      * @dataProvider provideInvalidAuthenticationHeader
      */
-    public function testIsAuthenticatedWithInvalidData(array $authHeaderContent): void
+    public function testIsAuthenticatedWithInvalidData(array $authHeaderContent)
     {
         $this->request
             ->getHeader('Authorization')
@@ -81,7 +81,7 @@ class BasicAccessTest extends TestCase
      * @param array $header
      * @dataProvider provideValidAuthentication
      */
-    public function testIsAuthenticatedWithValidCredential(string $username, string $password, array $header): void
+    public function testIsAuthenticatedWithValidCredential(string $username, string $password, array $header)
     {
         $this->request
             ->getHeader('Authorization')
@@ -108,7 +108,7 @@ class BasicAccessTest extends TestCase
         $this->assertEquals('Aladdin', $user->getIdentity());
     }
 
-    public function testIsAuthenticatedWithNoCredential(): void
+    public function testIsAuthenticatedWithNoCredential()
     {
         $this->request
             ->getHeader('Authorization')
@@ -127,7 +127,7 @@ class BasicAccessTest extends TestCase
         $this->assertNull($basicAccess->authenticate($this->request->reveal()));
     }
 
-    public function testGetUnauthenticatedResponse(): void
+    public function testGetUnauthenticatedResponse()
     {
         $this->responsePrototype
             ->getHeader('WWW-Authenticate')
