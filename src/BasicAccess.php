@@ -52,12 +52,15 @@ class BasicAccess implements AuthenticationInterface
 
     public function authenticate(ServerRequestInterface $request) : ?UserInterface
     {
-        $authHeader = $request->getHeader('Authorization');
-        if (! isset($authHeader[0])) {
+        $authHeaders = $request->getHeader('Authorization');
+
+        if (1 !== count($authHeaders)) {
             return null;
         }
 
-        if (! preg_match('/Basic (?P<credentials>.+)/', $authHeader[0], $match)) {
+        $authHeader = array_shift($authHeaders);
+
+        if (! preg_match('/Basic (?P<credentials>.+)/', $authHeader, $match)) {
             return null;
         }
 

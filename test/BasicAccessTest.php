@@ -166,6 +166,12 @@ class BasicAccessTest extends TestCase
             'only-pile-of-poo-emoji' => [['💩']],
             'basic-prefix-without-content' => [['Basic ']],
             'only-basic' => [['Basic']],
+            'multiple-auth-headers' => [
+                [
+                    ['Basic ' . base64_encode('Aladdin:OpenSesame')],
+                    ['Basic ' . base64_encode('Aladdin:OpenSesame')],
+                ],
+            ],
         ];
     }
 
