@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 0.3.1 - TBD
+## 0.3.1 - 2018-07-25
 
 ### Added
 
@@ -22,12 +22,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#9](https://github.com/zendframework/zend-expressive-authentication-basic/pull/9)
-  If the decoded authentication string did contain a colon, a PHP Warning was thrown in PHP 7.2
+- [#9](https://github.com/zendframework/zend-expressive-authentication-basic/pull/9) fixes an issue in PHP 7.2 that occurred when the decoded
+  authentication string did not contain a colon (`:`). It now correctly
+  interprets this as a lack of credentials.
 
-- [#9](https://github.com/zendframework/zend-expressive-authentication-basic/pull/9)
-  It was not possible to use passwords that contained colons
-  
+- [#9](https://github.com/zendframework/zend-expressive-authentication-basic/pull/9) provides a fix that allows passwords that contain colons.
+
 ## 0.3.0 - 2018-03-15
 
 ### Added
