@@ -107,7 +107,7 @@ class BasicAccessTest extends TestCase
 
         $user = $basicAccess->authenticate($this->request->reveal());
         $this->assertInstanceOf(UserInterface::class, $user);
-        $this->assertEquals('Aladdin', $user->getIdentity());
+        $this->assertEquals($username, $user->getIdentity());
     }
 
     public function testIsAuthenticatedWithNoCredential()
