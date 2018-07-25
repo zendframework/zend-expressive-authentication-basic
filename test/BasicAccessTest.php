@@ -179,9 +179,7 @@ class BasicAccessTest extends TestCase
             'aladdin-with-nonzero-array-index' => [
                 'Aladdin',
                 'OpenSesame',
-                [
-                    -200 => 'Basic ' . base64_encode('Aladdin:OpenSesame')
-                ]
+                [-200 => 'Basic ' . base64_encode('Aladdin:OpenSesame')]
             ],
             'passwords-with-colon' => ['Aladdin', 'Open:Sesame', ['Basic ' . base64_encode('Aladdin:Open:Sesame')]],
             'username-without-password' => ['Aladdin', '', ['Basic ' . base64_encode('Aladdin:')]],
