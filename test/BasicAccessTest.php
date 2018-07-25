@@ -58,14 +58,14 @@ class BasicAccessTest extends TestCase
 
 
     /**
-     * @param array $authHeaderContent
+     * @param array $authHeader
      * @dataProvider provideInvalidAuthenticationHeader
      */
-    public function testIsAuthenticatedWithInvalidData(array $authHeaderContent)
+    public function testIsAuthenticatedWithInvalidData(array $authHeader)
     {
         $this->request
             ->getHeader('Authorization')
-            ->willReturn($authHeaderContent);
+            ->willReturn($authHeader);
 
         $this->userRepository->authenticate(Argument::any(), Argument::any())->shouldNotBeCalled();
 
@@ -80,14 +80,14 @@ class BasicAccessTest extends TestCase
     /**
      * @param string $username
      * @param string $password
-     * @param array $header
+     * @param array $authHeader
      * @dataProvider provideValidAuthentication
      */
-    public function testIsAuthenticatedWithValidCredential(string $username, string $password, array $header)
+    public function testIsAuthenticatedWithValidCredential(string $username, string $password, array $authHeader)
     {
         $this->request
             ->getHeader('Authorization')
-            ->willReturn($header);
+            ->willReturn($authHeader);
         $this->request
             ->withAttribute(UserInterface::class, Argument::type(UserInterface::class))
             ->willReturn($this->request->reveal());
