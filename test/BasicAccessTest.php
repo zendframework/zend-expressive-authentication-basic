@@ -176,6 +176,13 @@ class BasicAccessTest extends TestCase
     {
         return [
             'aladdin' => ['Aladdin', 'OpenSesame', ['Basic ' . base64_encode('Aladdin:OpenSesame')]],
+            'aladdin-with-nonzero-array-index' => [
+                'Aladdin',
+                'OpenSesame',
+                [
+                    -200 => 'Basic ' . base64_encode('Aladdin:OpenSesame')
+                ]
+            ],
             'passwords-with-colon' => ['Aladdin', 'Open:Sesame', ['Basic ' . base64_encode('Aladdin:Open:Sesame')]],
             'username-without-password' => ['Aladdin', '', ['Basic ' . base64_encode('Aladdin:')]],
             'password-without-username' => ['', 'OpenSesame', ['Basic ' . base64_encode(':OpenSesame')]],

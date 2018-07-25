@@ -58,7 +58,7 @@ class BasicAccess implements AuthenticationInterface
             return null;
         }
 
-        [$authHeader] = $authHeaders;
+        $authHeader = array_shift($authHeaders);
 
         if (! preg_match('/Basic (?P<credentials>.+)/', $authHeader, $match)) {
             return null;
