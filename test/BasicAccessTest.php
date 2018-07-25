@@ -67,6 +67,8 @@ class BasicAccessTest extends TestCase
             ->getHeader('Authorization')
             ->willReturn($authHeaderContent);
 
+        $this->userRepository->authenticate(Argument::any(), Argument::any())->shouldNotBeCalled();
+
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
             'test',
