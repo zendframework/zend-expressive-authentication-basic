@@ -193,6 +193,10 @@ class BasicAccessTest extends TestCase
             ],
             'no-username-or-password' => ['', '', ['Basic ' . base64_encode(':')]],
             'no-username-password-only-colons' => ['', '::::::', ['Basic ' . base64_encode(':::::::')]],
+            'unicode-username-and-password' => [
+                'thumbsup-emoji-👍',
+                'thumbsdown-emoji-👎',
+                ['Basic ' . base64_encode('thumbsup-emoji-👍:thumbsdown-emoji-👎')]],
         ];
     }
 }
