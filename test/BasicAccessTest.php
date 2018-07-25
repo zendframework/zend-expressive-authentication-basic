@@ -157,13 +157,8 @@ class BasicAccessTest extends TestCase
         return [
             'empty-header' => [[]],
             'missing-basic-prefix' => [['foo']],
-            'only-username' => [['Basic ' . base64_encode('Aladdin')]],
-            'username-with-colon' => [['Basic ' . base64_encode('Aladdin:')]],
-            'password-without-username' => [['Basic ' . base64_encode(':OpenSesame')]],
+            'only-username-without-colon' => [['Basic ' . base64_encode('Aladdin')]],
             'base64-encoded-pile-of-poo-emoji' => [['Basic ' . base64_encode('💩')]],
-            'password-containing-colon' => [['Basic ' . base64_encode('username:password:containing:colons:')]],
-            'only-one-colon' => [['Basic ' . base64_encode(':')]],
-            'multiple-colons' => [['Basic ' . base64_encode(':::::::')]],
             'pile-of-poo-emoji' => [['Basic 💩']],
             'only-pile-of-poo-emoji' => [['💩']],
             'basic-prefix-without-content' => [['Basic ']],
@@ -182,11 +177,15 @@ class BasicAccessTest extends TestCase
         return [
             'aladdin' => ['Aladdin', 'OpenSesame', ['Basic ' . base64_encode('Aladdin:OpenSesame')]],
             'passwords-with-colon' => ['Aladdin', 'Open:Sesame', ['Basic ' . base64_encode('Aladdin:Open:Sesame')]],
+            'username-without-password' => ['Aladdin', '', ['Basic ' . base64_encode('Aladdin:')]],
+            'password-without-username' => ['', 'OpenSesame', ['Basic ' . base64_encode(':OpenSesame')]],
             'passwords-with-multiple-colons' => [
                 'Aladdin',
-                ':Open:Sesame:',
-                ['Basic ' . base64_encode('Aladdin::Open:Sesame:')]
+                '::Open:::Sesame::',
+                ['Basic ' . base64_encode('Aladdin:::Open:::Sesame::')]
             ],
+            'no-username-or-password' => ['', '', ['Basic ' . base64_encode(':')]],
+            'no-username-password-only-colons' => ['', '::::::', ['Basic ' . base64_encode(':::::::')]],
         ];
     }
 }
