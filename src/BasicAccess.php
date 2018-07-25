@@ -52,16 +52,35 @@ class BasicAccess implements AuthenticationInterface
 
     public function authenticate(ServerRequestInterface $request) : ?UserInterface
     {
-        $authHeader = $request->getHeader('Authorization');
-        if (empty($authHeader)) {
+        $authHeaders = $request->getHeader('Authorization');
+
+        if (1 !== count($authHeaders)) {
             return null;
         }
 
-        if (! preg_match('/Basic (?P<credentials>[a-zA-Z0-9\+\/\=]+)/', $authHeader[0], $match)) {
+        $authHeader = array_shift($authHeaders);
+
+        if (! preg_match('/Basic (?P<credentials>.+)/', $authHeader, $match)) {
             return null;
         }
 
-        [$username, $password] = explode(':', base64_decode($match['credentials']));
+        $decodedCredentials = base64_decode($match['credentials'], true);
+
+        if (false === $decodedCredentials) {
+            return null;
+        }
+
+        $credentialParts = explode(':', $decodedCredentials, 2);
+
+        if (false === $credentialParts) {
+            return null;
+        }
+
+        if (2 !== count($credentialParts)) {
+            return null;
+        }
+
+        [$username, $password] = $credentialParts;
 
         return $this->repository->authenticate($username, $password);
     }

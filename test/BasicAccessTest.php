@@ -56,11 +56,18 @@ class BasicAccessTest extends TestCase
         $this->assertInstanceOf(AuthenticationInterface::class, $basicAccess);
     }
 
-    public function testIsAuthenticatedWithoutHeader()
+
+    /**
+     * @param array $authHeader
+     * @dataProvider provideInvalidAuthenticationHeader
+     */
+    public function testIsAuthenticatedWithInvalidData(array $authHeader)
     {
         $this->request
             ->getHeader('Authorization')
-            ->willReturn([]);
+            ->willReturn($authHeader);
+
+        $this->userRepository->authenticate(Argument::any(), Argument::any())->shouldNotBeCalled();
 
         $basicAccess = new BasicAccess(
             $this->userRepository->reveal(),
@@ -70,35 +77,26 @@ class BasicAccessTest extends TestCase
         $this->assertNull($basicAccess->authenticate($this->request->reveal()));
     }
 
-    public function testIsAuthenticatedWithoutBasic()
+    /**
+     * @param string $username
+     * @param string $password
+     * @param array $authHeader
+     * @dataProvider provideValidAuthentication
+     */
+    public function testIsAuthenticatedWithValidCredential(string $username, string $password, array $authHeader)
     {
         $this->request
             ->getHeader('Authorization')
-            ->willReturn(['foo']);
-
-        $basicAccess = new BasicAccess(
-            $this->userRepository->reveal(),
-            'test',
-            $this->responseFactory
-        );
-
-        $this->assertNull($basicAccess->authenticate($this->request->reveal()));
-    }
-
-    public function testIsAuthenticatedWithValidCredential()
-    {
-        $this->request
-            ->getHeader('Authorization')
-            ->willReturn(['Basic QWxhZGRpbjpPcGVuU2VzYW1l']);
+            ->willReturn($authHeader);
         $this->request
             ->withAttribute(UserInterface::class, Argument::type(UserInterface::class))
             ->willReturn($this->request->reveal());
 
         $this->authenticatedUser
             ->getIdentity()
-            ->willReturn('Aladdin');
+            ->willReturn($username);
         $this->userRepository
-            ->authenticate('Aladdin', 'OpenSesame')
+            ->authenticate($username, $password)
             ->willReturn($this->authenticatedUser->reveal());
 
         $basicAccess = new BasicAccess(
@@ -109,7 +107,6 @@ class BasicAccessTest extends TestCase
 
         $user = $basicAccess->authenticate($this->request->reveal());
         $this->assertInstanceOf(UserInterface::class, $user);
-        $this->assertEquals('Aladdin', $user->getIdentity());
     }
 
     public function testIsAuthenticatedWithNoCredential()
@@ -151,7 +148,52 @@ class BasicAccessTest extends TestCase
 
         $response = $basicAccess->unauthorizedResponse($this->request->reveal());
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals(['Basic realm="test"'], $response->getHeader('WWW-Authenticate'));
+    }
+
+    public function provideInvalidAuthenticationHeader(): array
+    {
+        return [
+            'empty-header' => [[]],
+            'missing-basic-prefix' => [['foo']],
+            'only-username-without-colon' => [['Basic ' . base64_encode('Aladdin')]],
+            'base64-encoded-pile-of-poo-emoji' => [['Basic ' . base64_encode('💩')]],
+            'pile-of-poo-emoji' => [['Basic 💩']],
+            'only-pile-of-poo-emoji' => [['💩']],
+            'basic-prefix-without-content' => [['Basic ']],
+            'only-basic' => [['Basic']],
+            'multiple-auth-headers' => [
+                [
+                    ['Basic ' . base64_encode('Aladdin:OpenSesame')],
+                    ['Basic ' . base64_encode('Aladdin:OpenSesame')],
+                ],
+            ],
+        ];
+    }
+
+    public function provideValidAuthentication(): array
+    {
+        return [
+            'aladdin' => ['Aladdin', 'OpenSesame', ['Basic ' . base64_encode('Aladdin:OpenSesame')]],
+            'aladdin-with-nonzero-array-index' => [
+                'Aladdin',
+                'OpenSesame',
+                [-200 => 'Basic ' . base64_encode('Aladdin:OpenSesame')]
+            ],
+            'passwords-with-colon' => ['Aladdin', 'Open:Sesame', ['Basic ' . base64_encode('Aladdin:Open:Sesame')]],
+            'username-without-password' => ['Aladdin', '', ['Basic ' . base64_encode('Aladdin:')]],
+            'password-without-username' => ['', 'OpenSesame', ['Basic ' . base64_encode(':OpenSesame')]],
+            'passwords-with-multiple-colons' => [
+                'Aladdin',
+                '::Open:::Sesame::',
+                ['Basic ' . base64_encode('Aladdin:::Open:::Sesame::')]
+            ],
+            'no-username-or-password' => ['', '', ['Basic ' . base64_encode(':')]],
+            'no-username-password-only-colons' => ['', '::::::', ['Basic ' . base64_encode(':::::::')]],
+            'unicode-username-and-password' => [
+                'thumbsup-emoji-👍',
+                'thumbsdown-emoji-👎',
+                ['Basic ' . base64_encode('thumbsup-emoji-👍:thumbsdown-emoji-👎')]],
+        ];
     }
 }
