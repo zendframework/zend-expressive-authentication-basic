@@ -1,6 +1,6 @@
-# zend-expressive-authentication-basic
-
-This component provides an HTTP Basic Authentication adapter for
-[zend-expressive-authentication](https://docs.zendframework.com/zend-expressive-authentication).
-
-Docs are forthcoming...
+<noscript><meta http-equiv="refresh" content="0; url=/zend-expressive-authentication-basic/v1/intro/"></noscript>
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+    window.location.pathname = '/zend-expressive-authentication-basic/v1/intro/';
+  });
+</script>
