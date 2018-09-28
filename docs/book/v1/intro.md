@@ -1,4 +1,4 @@
-# zend-expressive-authentication-basic
+# Introduction
 
 This component provides an HTTP Basic Authentication adapter for
 [zend-expressive-authentication](https://docs.zendframework.com/zend-expressive-authentication).
@@ -102,7 +102,7 @@ $app->get(
     '/path/requiring/authentication',
     [
         Zend\Expressive\Authentication\AuthenticationMiddleware::class,
-        HandlerRequiringAuthentication::class,
+        HandlerRequiringAuthentication::class, // use your own handler here
     ]
 );
 ```
