@@ -3,6 +3,8 @@ site_dir: docs/html
 pages:
     - Home: index.md
     - Introduction: v1/intro.md
+    - Configuration: v1/config.md
+    - Usage: v1/usage.md
     - "_hidden-legacy-page-links":
       - "_intro": intro.md
 site_name: zend-expressive-authentication-basic
