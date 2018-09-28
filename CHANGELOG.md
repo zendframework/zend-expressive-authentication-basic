@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.0 - TBD
+
+### Added
+
+- [#10](https://github.com/zendframework/zend-expressive-authentication-basic/pull/10) adds support for the upcoming PHP 7.3 release.
+
+- [#10](https://github.com/zendframework/zend-expressive-authentication-basic/pull/10) adds full configuration and usage documentation.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#10](https://github.com/zendframework/zend-expressive-authentication-basic/pull/10) removes support for pre-1.0 versions of
+  zendframework/zend-expressive-authentication.
+
+### Fixed
+
+- Nothing.
+
 ## 0.3.1 - 2018-07-25
 
 ### Added
