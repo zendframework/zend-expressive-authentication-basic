@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HTTP Basic Authentication adapter for zend-expressive-authentication.">  
-    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <link rel="shortcut icon" href="//img/favicon.ico">
 
-    <title>Configuration - zend-expressive-authentication-basic - Zend Framework Docs</title>
+    <title>zend-expressive-authentication-basic - Zend Framework Docs</title>
 
-    <link rel="stylesheet" href="../../css/styles-f3b53f5ceb.css">
+    <link rel="stylesheet" href="//css/styles-f3b53f5ceb.css">
 </head>
 <body id="page-top">
 
@@ -31,7 +31,7 @@
             
             <span class="navbar-brand">
                 <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
-                    <img src="../../img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                    <img src="//img/zend-framework-logo.svg" height="28" alt="Zend Framework">
                 </a>
             </span>
         </div>
@@ -66,7 +66,7 @@
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">zend-expressive-authentication-basic</a>
+            <a href="/.">zend-expressive-authentication-basic</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -75,19 +75,19 @@
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../intro/" class="subnavigation__link">Introduction</a>
-                    </li>
-                
-            
-                
-                    <li class="subnavigation__list-item subnavigation__list-item--active">
-                        <a href="./" class="subnavigation__link">Configuration</a>
+                        <a href="/v1/intro/" class="subnavigation__link">Introduction</a>
                     </li>
                 
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../usage/" class="subnavigation__link">Usage</a>
+                        <a href="/v1/config/" class="subnavigation__link">Configuration</a>
+                    </li>
+                
+            
+                
+                    <li class="subnavigation__list-item ">
+                        <a href="/v1/usage/" class="subnavigation__link">Usage</a>
                     </li>
                 
             
@@ -160,111 +160,18 @@
             <div class="col-md-9 col-xs-12 content" role="main">
             <!-- content:begin -->
                 
-                    <ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
-    <li><a href="https://framework.zend.com/">Home</a></li>
 
-    
-        <li><a href="https://docs.zendframework.com/">Documentation</a></li>
+<h1 class="content__title">404</h1>
+<blockquote>
+    <h3>Something went wrong!</h3>
+    <p>
+        We're sorry, but the page you are looking for does not exist.
+    </p>
+</blockquote>
 
-        
-            <li><a href="../..">zend-expressive-authentication-basic</a></li>
-
-            
-
-            <li class="active">Configuration</li>
-        
-    
-</ol>
+<a href="/" class="btn btn-default" role="button">Go to homepage</a>
 
 
-    
-
-    
-    
-
-    
-    
-
-
-    <h1 id="configuration">Configuration</h1>
-<p>To use the adapter, you will need to provide the following configuration:</p>
-<ul>
-<li>
-<p>A valid zend-expressive-authentication <code>UserRepositoryInterface</code> service in
-  your DI container. This service will perform the actual work of validating the
-  supplied credentials.</p>
-</li>
-<li>
-<p>An HTTP Basic <strong>realm</strong>. This may be an arbitrary value, but is <a href="https://tools.ietf.org/html/rfc7617#section-2">required by
-  the specification</a>.</p>
-</li>
-<li>
-<p>A response factory. If you are using Expressive, this is already configured
-  for you.</p>
-</li>
-</ul>
-<p>As an example of configuration:</p>
-<pre class="codehilite"><code class="language-php">// config/autoload/authentication.global.php
-
-use Zend\Expressive\Authentication\AdapterInterface;
-use Zend\Expressive\Authentication\Basic\BasicAccess;
-use Zend\Expressive\Authentication\UserRepositoryInterface;
-use Zend\Expressive\Authentication\UserRepository\PdoDatabase;
-
-return [
-    'dependencies' =&gt; [
-        'aliases' =&gt; [
-            // Use the default PdoDatabase user repository. This assumes
-            // you have configured that service correctly.
-            UserRepositoryInterface::class =&gt; PdoDatabase::class,
-
-            // Tell zend-expressive-authentication to use the BasicAccess
-            // adapter:
-            AdapterInterface::class =&gt; BasicAccess::class,
-        ],
-    ],
-    'authentication' =&gt; [
-        'realm' =&gt; 'api',
-    ],
-];</code></pre>
-
-
-
-    <nav>
-    <ul class="page-nav hidden-print">
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../intro/">
-                    <i class="fa fa-chevron-left"></i> Previous
-                </a>
-            
-        </li>
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../usage/">
-                    Next <i class="fa fa-chevron-right"></i>
-                </a>
-            
-        </li>
-    </ul>
-</nav>
-
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-expressive-authentication-basic/edit/master/docs/book/v1/config.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
-
-                
             <!-- content:end -->
             </div>
             <div class="col-md-3 col-xs-12 sidebar">
@@ -280,7 +187,7 @@ return [
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">zend-expressive-authentication-basic</a>
+            <a href="/.">zend-expressive-authentication-basic</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -289,19 +196,19 @@ return [
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../intro/" class="subnavigation__link">Introduction</a>
-                    </li>
-                
-            
-                
-                    <li class="subnavigation__list-item subnavigation__list-item--active">
-                        <a href="./" class="subnavigation__link">Configuration</a>
+                        <a href="/v1/intro/" class="subnavigation__link">Introduction</a>
                     </li>
                 
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../usage/" class="subnavigation__link">Usage</a>
+                        <a href="/v1/config/" class="subnavigation__link">Configuration</a>
+                    </li>
+                
+            
+                
+                    <li class="subnavigation__list-item ">
+                        <a href="/v1/usage/" class="subnavigation__link">Usage</a>
                     </li>
                 
             
@@ -376,11 +283,11 @@ return [
 </footer>
 
     <script>
-        var base_url = '../..',
+        var base_url = '/',
             siteName = 'zend-expressive-authentication-basic';
     </script>
-    <script src="../../js/scripts-8d7ae56abf.js"></script>
-        <script src="../../search/main.js"></script>
+    <script src="//js/scripts-8d7ae56abf.js"></script>
+        <script src="/search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
