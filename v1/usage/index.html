@@ -244,26 +244,24 @@
 zend-expressive-authentication <code>AuthenticationMiddleware</code> in your pipeline.</p>
 <h2 id="globally">Globally</h2>
 <p>If you need all routes to use authentication, add it globally.</p>
-<pre class="codehilite"><code class="language-php">// In config/pipeline.php, within the callback:
+<p> <pre class=codehilite><code class=language-php>// In config/pipeline.php, within the callback:
 
-$app-&gt;pipe(Zend\Expressive\Authentication\AuthenticationMiddleware::class);</code></pre>
-
+$app-&gt;pipe(Zend\Expressive\Authentication\AuthenticationMiddleware::class);</code></pre></p>
 <h2 id="for-an-entire-sub-path">For an entire sub-path</h2>
 <p>If you need all routes that begin with a particular sub-path to require
 authentication, use <a href="https://docs.zendframework.com/zend-stratigility/v3/api/#path">path-segregation</a>:</p>
-<pre class="codehilite"><code class="language-php">// In config/pipeline.php.
+<p> <pre class=codehilite><code class=language-php>// In config/pipeline.php.
 // In the import statements:
 use Zend\Expressive\Authentication\AuthenticationMiddleware;
 
 // In the callback:
 $app-&gt;pipe('/api', $factory-&gt;path(
     $factory-&gt;prepare(AuthenticationMiddleware::class)
-));</code></pre>
-
+));</code></pre></p>
 <h2 id="for-a-specific-route">For a specific route</h2>
 <p>If you want to restrict access for a specific route, create a <a href="https://docs.zendframework.com/zend-expressive/v3/cookbook/route-specific-pipeline/">route-specific
 middleware pipeline</a>:</p>
-<pre class="codehilite"><code class="language-php">// In config/routes.php, in the callback:
+<p> <pre class=codehilite><code class=language-php>// In config/routes.php, in the callback:
 
 $app-&gt;get(
     '/path/requiring/authentication',
@@ -271,7 +269,7 @@ $app-&gt;get(
         Zend\Expressive\Authentication\AuthenticationMiddleware::class,
         HandlerRequiringAuthentication::class, // use your own handler here
     ]
-);</code></pre>
+);</code></pre></p>
 
 
 
@@ -305,7 +303,7 @@ $app-&gt;get(
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-expressive-authentication-basic/edit/master/docs/v1/usage.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-expressive-authentication-basic/edit/master/docs/book/v1/usage.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>
