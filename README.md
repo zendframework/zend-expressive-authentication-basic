@@ -2,7 +2,7 @@
 
 > ## Repository abandoned 2019-12-31
 >
-> This repository has moved to mezzio/mezzio-authentication-basic.
+> This repository has moved to [mezzio/mezzio-authentication-basic](https://github.com/mezzio/mezzio-authentication-basic).
 
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-expressive-authentication-basic.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-expressive-authentication-basic)
 [![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-expressive-authentication-basic/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-expressive-authentication-basic?branch=master)
