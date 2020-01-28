@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HTTP Basic Authentication adapter for zend-expressive-authentication.">  
-    <link rel="canonical" href="https://docs.zendframework.com/zend-expressive-authentication-basic/v1/usage/">
+    <link rel="canonical" href="https://docs.zendframework.com/v1/usage/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     <title>Usage - zend-expressive-authentication-basic - Zend Framework Docs</title>
 
-    <link rel="stylesheet" href="../../css/styles-5cfabd53ee.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body id="page-top">
 
@@ -174,9 +174,9 @@
     <div class="laminas-announcement">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                Zend Framework transitions to the Linux Foundation. <a href="https://getlaminas.org">Learn More.</a>
-            </div>
+            <div class="col-xs-12"><strong>
+                This package has moved. Visit its replacement, <a href="https://docs.mezzio.dev/mezzio-authentication-basic/">mezzio/mezzio-authentication-basic.</a>
+            </strong></div>
         </div>
     </div>
 </div>
@@ -244,24 +244,28 @@
 zend-expressive-authentication <code>AuthenticationMiddleware</code> in your pipeline.</p>
 <h2 id="globally">Globally</h2>
 <p>If you need all routes to use authentication, add it globally.</p>
-<p> <pre class=codehilite><code class=language-php>// In config/pipeline.php, within the callback:
+<pre><code class="language-php">// In config/pipeline.php, within the callback:
 
-$app-&gt;pipe(Zend\Expressive\Authentication\AuthenticationMiddleware::class);</code></pre></p>
+$app-&gt;pipe(Zend\Expressive\Authentication\AuthenticationMiddleware::class);
+</code></pre>
+
 <h2 id="for-an-entire-sub-path">For an entire sub-path</h2>
 <p>If you need all routes that begin with a particular sub-path to require
 authentication, use <a href="https://docs.zendframework.com/zend-stratigility/v3/api/#path">path-segregation</a>:</p>
-<p> <pre class=codehilite><code class=language-php>// In config/pipeline.php.
+<pre><code class="language-php">// In config/pipeline.php.
 // In the import statements:
 use Zend\Expressive\Authentication\AuthenticationMiddleware;
 
 // In the callback:
 $app-&gt;pipe('/api', $factory-&gt;path(
     $factory-&gt;prepare(AuthenticationMiddleware::class)
-));</code></pre></p>
+));
+</code></pre>
+
 <h2 id="for-a-specific-route">For a specific route</h2>
 <p>If you want to restrict access for a specific route, create a <a href="https://docs.zendframework.com/zend-expressive/v3/cookbook/route-specific-pipeline/">route-specific
 middleware pipeline</a>:</p>
-<p> <pre class=codehilite><code class=language-php>// In config/routes.php, in the callback:
+<pre><code class="language-php">// In config/routes.php, in the callback:
 
 $app-&gt;get(
     '/path/requiring/authentication',
@@ -269,7 +273,8 @@ $app-&gt;get(
         Zend\Expressive\Authentication\AuthenticationMiddleware::class,
         HandlerRequiringAuthentication::class, // use your own handler here
     ]
-);</code></pre></p>
+);
+</code></pre>
 
 
 
@@ -410,7 +415,7 @@ $app-&gt;get(
             
             <div class="col-md-9">
                 <h4 class="footer__headline">Copyright</h4>
-                <p>&copy; 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+                <p>&copy; 2006-2020 by <a href="https://www.zend.com/">Zend</a> by <a href="https://www.perforce.com/">Perforce</a>.</p>
             </div>
 
             
@@ -418,10 +423,10 @@ $app-&gt;get(
                 <h4 class="footer__headline">Support</h4>
                 <ul class="support__list">
                     <li class="support__list-item">
-                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
                     </li>
                     <li class="support__list-item">
-                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                        <a href="https://laminas.dev/chat/" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
                     </li>
                     <li class="support__list-item">
                         <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
@@ -429,27 +434,28 @@ $app-&gt;get(
                     <li class="support__list-item">
                         <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
                     </li>
-                    <li class="support__list-item">
-                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
-                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
 
+<nav class="cookie-bar navbar navbar-fixed-bottom navbar-default hidden">
+    <div class="container">
+        <p class="navbar-text">
+            We use cookies to allow you to dismiss dialogs such as the Laminas
+            Project notification.
+        </p>
+        <button type="button" class="cookie-button btn btn-default navbar-btn">Allow Cookies</button>
+    </div>
+</nav>
+
     <script>
         var base_url = '../..',
             siteName = 'zend-expressive-authentication-basic';
     </script>
-    <script src="../../js/scripts-8d7ae56abf.js"></script>
-        <script src="../../search/main.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="../../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
